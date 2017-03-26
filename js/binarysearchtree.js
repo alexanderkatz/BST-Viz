@@ -1,8 +1,9 @@
 class Node{
     constructor(value){
         this.value = value;
-        this.left = null;
-        this.right = null;
+        this.children = [];//[null,null];
+        // left child: children[0] 
+        // right child: children[1] 
     }
 }
 
@@ -34,46 +35,25 @@ class BinarySearchTree{
             }
             // value is less than current.value
             else if(value < current.value){
-                if (current.left == null){
-                    current.left = node;
+                if (current.children[0] == null || current.children[0].value == "e"){
+                    current.children[0]=node;
+                    // current.children[1] = new Node("e");
+
                     return;
                 }
-                current = current.left;
+                // current = current.left;
+                current = current.children[0];
             }
             // value is greater than current.value
             else{
-                if (current.right == null){
-                    current.right = node;
+                if (current.children[1] == null ){
+                    current.children[0] = new Node("e");
+                    current.children[1]=node;
                     return;
                 }
-                current = current.right;
+                current = current.children[1];
             }
         }
-    }
-    /*To JSON, preorder traversal*/
-    toJSON(){
-        // var data = {};
-        // var current = this.root;
-        // var i=0;
-        
-        var stack = [];
-        stack.push(this.root);
-        
-        while(stack.length>0){
-            var current = stack.pop(); 
-            console.log(current);
-
-            if(current.right != null){
-                stack.push(current.right);
-            }
-            if(current.left != null){
-                stack.push(current.left);
-            }
-
-        }
-
-
-        // console.log("DATA",data);
     }
 /*End of Class*/    
 }
@@ -81,36 +61,18 @@ class BinarySearchTree{
 
 // Main Program
 function main(){
-    var tree = new BinarySearchTree(10);
-    var numbers = [7,5,9,20];
+    var tree = new BinarySearchTree(4);
+    var numbers=[5];
+    var numbers = [7,1,5,0,9,20];
     
     for (var i =0; i< numbers.length; i++){
         tree.insert(numbers[i]);
     }
-    // console.log(tree);  
-    tree.toJSON();  
+    // Set tree root to treeData
+    treeData = tree.root;  
+    // console.log(treeData);
     
     // https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd
-// DATA
-
-var treeData = {
-    "value": "10",
-    "children": [{
-            "value": "7",
-            "children": [{
-                    "value": "5"
-                },
-                {
-                    "value": "9"
-                }
-            ]
-        },
-        {
-            "value": "20"
-        }
-    ]
-};
-console.log(treeData);
 
 // Set dimensions and margins for diagram
 var margin = {top: 80, right: 90, bottom: 20, left: 90},
@@ -136,14 +98,16 @@ var i = 0,
 var treemap = d3.tree().size([height, width]);
 
 // Assigns parent, children, height, depth
-root = d3.hierarchy(treeData, function(d){ return d.children; });
+root = d3.hierarchy(treeData, function(d){ 
+    return d.children; 
+});
+
 root.x0 =  height/ 2;
 root.y0 = 0;
 
-console.log(root);
 
 // Collapse after the second level
-root.children.forEach(collapse);
+// root.children.forEach(collapse);
 
 update(root);
 
@@ -183,8 +147,14 @@ function update(source){
                      .on('click', click);
                      
     // Add Circle for the nodes
+    
     nodeEnter.append('circle')
-        .attr('class', 'node')
+        .attr('class', function(d){
+            if(isNaN(d.value)){
+                return "hidden";
+            }
+            return 'node';
+         })
         .attr('r', 1e-6)
         .style("fill", function(d){
             return d._children ? "lightsteelblue" : "#fff";
@@ -199,7 +169,12 @@ function update(source){
         .attr("text-anchor", function(d){
             return d.children || d._children ? "end" : "start";
         })
-        .text(function(d){ return d.data.value; });
+        .text(function(d){ 
+            if(isNaN(d.value)){
+                return "";
+            }    
+            return d.data.value; 
+        });
     
     // Update
     var nodeUpdate = nodeEnter.merge(node);
@@ -243,8 +218,15 @@ function update(source){
         
     // Enter any new links at the parent's previous position
     var linkEnter = link.enter().insert('path', "g")
-        .attr("class", "link")
+        .attr("class", function(d){
+            if(isNaN(d.value)){
+                return "hidden"
+            }              
+            return "link";
+        })
+ 
         .attr('d', function(d){
+            console.log(d.value);
             var o = {x: source.x0, y: source.y0};
             return diagonal(o,o);
         });
