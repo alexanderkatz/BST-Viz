@@ -47,7 +47,9 @@ class BinarySearchTree{
             // value is greater than current.value
             else{
                 if (current.children[1] == null ){
-                    current.children[0] = new Node("e");
+                    if (!current.children[0]){
+                        current.children[0] = new Node("e");
+                    }
                     current.children[1]=node;
                     return;
                 }
@@ -61,9 +63,9 @@ class BinarySearchTree{
 
 // Main Program
 function main(){
-    var tree = new BinarySearchTree(4);
-    var numbers=[5];
-    var numbers = [7,1,5,0,9,20];
+    var tree = new BinarySearchTree(10);
+    var numbers=[5,15,14,12,13,16];
+    
     
     for (var i =0; i< numbers.length; i++){
         tree.insert(numbers[i]);
