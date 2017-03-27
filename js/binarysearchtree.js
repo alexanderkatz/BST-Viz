@@ -37,8 +37,7 @@ class BinarySearchTree{
             else if(value < current.value){
                 if (current.children[0] == null || current.children[0].value == "e"){
                     current.children[0]=node;
-                    // current.children[1] = new Node("e");
-
+                    current.children[1] = new Node("e");
                     return;
                 }
                 // current = current.left;
@@ -46,7 +45,8 @@ class BinarySearchTree{
             }
             // value is greater than current.value
             else{
-                if (current.children[1] == null ){
+                if (current.children[1] == null || current.children[1].value == "e"){
+                // if (current.children[1] == null ){
                     if (!current.children[0]){
                         current.children[0] = new Node("e");
                     }
@@ -63,8 +63,8 @@ class BinarySearchTree{
 
 // Main Program
 function main(){
-    var tree = new BinarySearchTree(10);
-    var numbers=[5,15,14,12,13,16];
+    var tree = new BinarySearchTree(25);
+    var numbers=[15,18,17,30,20,19];
     
     
     for (var i =0; i< numbers.length; i++){
@@ -72,7 +72,7 @@ function main(){
     }
     // Set tree root to treeData
     treeData = tree.root;  
-    // console.log(treeData);
+    console.log(treeData);
     
     // https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd
 
@@ -153,7 +153,7 @@ function update(source){
     nodeEnter.append('circle')
         .attr('class', function(d){
             if(isNaN(d.value)){
-                return "hidden";
+                return "node hidden";
             }
             return 'node';
          })
@@ -222,7 +222,7 @@ function update(source){
     var linkEnter = link.enter().insert('path', "g")
         .attr("class", function(d){
             if(isNaN(d.value)){
-                return "hidden"
+                return "link hidden "
             }              
             return "link";
         })
