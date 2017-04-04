@@ -1,15 +1,14 @@
 class Node {
     constructor(value) {
         this.value = value;
-        this.children = []; //[null,null];
-        // left child: children[0] 
-        // right child: children[1] 
+        this.children = []; // [null,null];
+        // left child: children[0], right child: children[1] 
     }
 }
 
 /* BinarySearchTree
    The BinarySearchTree constructor sets the tree's root
-   to the node passed into the constuctor. 
+   to the value passed into the constuctor. 
 */
 
 class BinarySearchTree {
