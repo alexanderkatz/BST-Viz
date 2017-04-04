@@ -63,6 +63,10 @@ class BinarySearchTree {
 function drawTree(data) {
     // Set dimensions and margins for diagram
     var margin = {
+            // top: 80,
+            // right: 90,
+            // bottom: 20,
+            // left: 90
             top: 80,
             right: 0,
             bottom: 80,
@@ -76,10 +80,12 @@ function drawTree(data) {
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin   
     var svg = d3.select("body").append("svg")
-        .attr("width", "100%")
+        .attr("width", "100%")//width + margin.right + margin.left)
         .attr("height", height + margin.top + margin.bottom)
         .attr("viewBox","0 0 800 600")
-        .attr("preserveAspectRatio","xMidYMid")
+        // .attr("preserveAspectRatio","xMidYMid");
+        // .attr("viewBox","0 0 800px 600px")
+        // .attr("preserveAspectRatio","xMidYMid")
         .append("g")
         .attr("transform", "translate(" +
             margin.left + "," + margin.top + ")");
