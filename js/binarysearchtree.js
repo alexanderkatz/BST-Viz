@@ -28,15 +28,20 @@ class BinarySearchTree {
 
         var current = this.root;
         while (current) {
+            console.log(value);
             // If tree contains value return
             if (current.value == value) {
                 return;
             }
             // value is less than current.value
             else if (value < current.value) {
+                console.log("value, current.value",value, current.value)
+                
                 if (current.children[0] == null || current.children[0].value == "e") {
                     current.children[0] = node;
-                    current.children[1] = new Node("e");
+                    if (current.children[1]==null){
+                        current.children[1] = new Node("e");
+                    }
                     return;
                 }
                 // current = current.left;
@@ -102,12 +107,8 @@ function drawTree(data) {
         return d.children;
     });
 
-    console.log(root);
-
-
     root.x0 = width / 2;
     root.y0 = 0;
-
 
     // Collapse after the second level
     // root.children.forEach(collapse);
@@ -293,21 +294,16 @@ function drawTree(data) {
     }
 }
 
-
-
-
-
 window.onload = function() {
     var tree = new BinarySearchTree(25);
-    var numbers = [15, 18, 17, 30, 20, 19];
+    var numbers = [100, 35, 15, 30, 200];
 
     for (var i = 0; i < numbers.length; i++) {
         tree.insert(numbers[i]);
     }
     // Call Draw Tree and pass it tree.root
+    console.log(tree.root);
     drawTree(tree.root);
-
-
 };
 // 
 // // showMessages
@@ -318,7 +314,7 @@ function drawSteps(numbers){
   }
   
   var tree = new BinarySearchTree(25);
-  var numbers = [15, 18, 17, 30, 20, 19];
+  var numbers = [15, 18, 10, 17, 100, 30, 20, 19];
   for (var i = 0; i <steps; i++) {
       tree.insert(numbers[i]);
   }
