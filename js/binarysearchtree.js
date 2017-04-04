@@ -64,20 +64,22 @@ function drawTree(data) {
     // Set dimensions and margins for diagram
     var margin = {
             top: 80,
-            right: 90,
-            bottom: 20,
-            left: 90
+            right: 0,
+            bottom: 80,
+            left: 0
         },
-        width = 960 - margin.right - margin.left,
-        height = 500 - margin.top - margin.bottom;
+        width = 800 - margin.right - margin.left,
+        height = 600 - margin.top - margin.bottom;
 
 
     // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin   
     var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.right + margin.left)
+        .attr("width", "100%")
         .attr("height", height + margin.top + margin.bottom)
+        .attr("viewBox","0 0 800 600")
+        .attr("preserveAspectRatio","xMidYMid")
         .append("g")
         .attr("transform", "translate(" +
             margin.left + "," + margin.top + ")");
@@ -87,14 +89,17 @@ function drawTree(data) {
         root;
 
     // Declares a tree layout and assigns the size
-    var treemap = d3.tree().size([height, width]);
+    var treemap = d3.tree().size([width, height]);
 
     // Assigns parent, children, height, depth
     root = d3.hierarchy(data, function(d) {
         return d.children;
     });
 
-    root.x0 = height / 2;
+    console.log(root);
+
+
+    root.x0 = width / 2;
     root.y0 = 0;
 
 
