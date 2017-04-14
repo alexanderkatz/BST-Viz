@@ -68,16 +68,10 @@ class BinarySearchTree {
 function drawTree(data) {
     // Set dimensions and margins for diagram
     var margin = {
-            // top: 80,
-            // right: 90,
-            // bottom: 20,
-            // left: 90
             top: 80,
-            right: 0,
-            bottom: 80,
-            left: 0
+            bottom: 80
         },
-        width = 800 - margin.right - margin.left,
+        width = 800,
         height = 600 - margin.top - margin.bottom;
 
 
@@ -85,15 +79,11 @@ function drawTree(data) {
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin   
     var svg = d3.select("body").append("svg")
-        .attr("width", "100%")//width + margin.right + margin.left)
+        .attr("width", "100%")
         .attr("height", height + margin.top + margin.bottom)
         .attr("viewBox","0 0 800 600")
-        // .attr("preserveAspectRatio","xMidYMid");
-        // .attr("viewBox","0 0 800px 600px")
-        // .attr("preserveAspectRatio","xMidYMid")
         .append("g")
-        .attr("transform", "translate(" +
-            margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(0," + margin.top + ")");
 
     var i = 0,
         duration = 750,
@@ -295,8 +285,8 @@ function drawTree(data) {
 }
 
 window.onload = function() {
-    var tree = new BinarySearchTree(25);
-    var numbers = [100, 35, 15, 30, 200];
+    var tree = new BinarySearchTree(50);
+    var numbers = [18,36,60,45,37];
 
     for (var i = 0; i < numbers.length; i++) {
         tree.insert(numbers[i]);
@@ -314,7 +304,7 @@ function drawSteps(numbers){
   }
   
   var tree = new BinarySearchTree(25);
-  var numbers = [15, 18, 10, 17, 100, 30, 20, 19];
+  var numbers = [33,87,45,56,2,5,100];
   for (var i = 0; i <steps; i++) {
       tree.insert(numbers[i]);
   }

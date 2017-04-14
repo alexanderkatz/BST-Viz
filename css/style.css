@@ -20,10 +20,12 @@ svg{
 
 .hidden{
     stroke: rgba(0, 0, 0, 0.1);
+    display: none;
 
 }
 .node.hidden{
-        fill: rgba(0, 0, 0, 0.1) !important;
-        stroke: rgba(0, 0, 0, 0.1);
+        /*fill: rgba(0, 0, 0, 0.1) !important;
+        stroke: rgba(0, 0, 0, 0.1);*/
+        /*display: none;*/
 
 }
